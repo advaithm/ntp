@@ -4,4 +4,12 @@
  * See: https://www.gatsbyjs.com/docs/browser-apis/
  */
 
-// You can delete this file if you're not using it
+import { navigate } from "gatsby";
+
+const legalRoutes = ["", "/settings"]
+
+export const onPreRouteUpdate = ({ location, prevLocation }) => {
+    const r = location.pathname.replace(/\/$/, "");
+
+    if(!legalRoutes.includes(r)) navigate("/");
+}

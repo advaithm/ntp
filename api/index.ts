@@ -6,7 +6,7 @@ import * as rateLimit from 'express-rate-limit';
 require('dotenv').config()
 
 const app = express()
-const port = 3000
+const port = process.env.NODE_ENV == "development" ? 3000 : 3064
 
 const ratelimiter = rateLimit({
     windowMs: 15 * 60 * 1000,

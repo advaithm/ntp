@@ -10,7 +10,7 @@ const port = process.env.NODE_ENV == "development" ? 3000 : 3064
 
 const ratelimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 1
+    max: 3
 })
 
 app.use(function(req, res, next) {

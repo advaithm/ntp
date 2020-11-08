@@ -4,6 +4,10 @@ module.exports = {
     description: `Compass is a feature-rich new tab page designed for speed.`,
     author: `@dothq`,
   },
+  proxy: {
+    prefix: "/api",
+    url: "http://localhost:3000",
+  },
   plugins: [
     `gatsby-plugin-react-helmet`,
     {
@@ -24,7 +28,6 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: `#ffffff`,
         display: `minimal-ui`,
-        icon: `src/images/icon.png`, // This path is relative to the root of the site.
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

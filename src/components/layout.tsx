@@ -15,18 +15,15 @@ import "fontsource-inter/latin.css"
 
 import { unsplashPlugin } from "../plugins/unsplash";
 
-import useWindowFocus from "use-window-focus";
-
 import { Time } from "../widgets/Time";
 
 const Layout = ({ children }) => {
 	const localStorageState = typeof(localStorage) !== "undefined" && localStorage.getItem("settings")
 
-	const isWindowFocused = useWindowFocus();
-
 	const [widgetsReady, setWidgetsReady] = React.useState(false);
 
 	const [background, setBackground] = React.useState();
+	const [backgroundGetProcess, setBackgroundGetProcess] = React.useState(false);
 	const [backgroundSet, setBackgroundSet] = React.useState(false);
 	const [backgroundDimmed, setBackgroundDimmed] = React.useState(false);
 	const [backgroundLoaded, setBackgroundLoaded] = React.useState(false);
@@ -63,7 +60,9 @@ const Layout = ({ children }) => {
 	}
 
 	React.useEffect(() => {
-		if(backgroundSet) return;
+		if(backgroundSet || backgroundGetProcess) return;
+
+		setBackgroundGetProcess(true);
 
 		unsplashPlugin.api.getBackground().then(({ url, attribution, location }) => {
 			setState({ attribution, location: !!location ? location : null })
@@ -87,7 +86,7 @@ const Layout = ({ children }) => {
 
 				<Metadata visible={backgroundLoaded} onMouseEnter={() => setBackgroundDimmed(true)} onMouseLeave={() => setBackgroundDimmed(false)}>
 					<Attribution>
-						Photo by <a target={"__blank"} href={`https://unsplash.com/@${state.attribution.logon}`}>{state.attribution.name}</a> on <a target={"__blank"} href={`https://unsplash.com`}>Unsplash</a>
+						<a target={"__blank"} href={state.attribution.originalPhoto}>Photo</a> by <a target={"__blank"} href={`https://unsplash.com/@${state.attribution.logon}`}>{state.attribution.name}</a> on <a target={"__blank"} href={`https://unsplash.com`}>Unsplash</a>
 					</Attribution>
 
 					{state.location && <Geolocation>

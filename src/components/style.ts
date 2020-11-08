@@ -28,7 +28,6 @@ export const BackgroundDisplay = styled.img`
     ${({ loaded, dimmed }: { loaded: boolean; dimmed: boolean }) => css`
         opacity: ${dimmed ? 0.2 : loaded ? 0.8 : 0};
         transform: scale(${dimmed ? 1.01 : 1});
-        filter: blur(${dimmed ? 2 : 0}px);
     `};
 `;
 
@@ -70,20 +69,20 @@ export const MetadataContent = styled.div`
     }
 
     &:hover > a:hover {
-        border-bottom: 2px solid white;
+        box-shadow: 0px 2px 0px 0px white;
     }
 
     a {
         color: #f2f2f2a3;
         text-decoration: none;
-        border-bottom: 0px solid transparent;
-        transition: 0.15s border-bottom, 0.7s color;
+        box-shadow: 0px 0px 0px 0px transparent;
+        transition: 0.15s box-shadow, 0.7s color;
         font-weight: 600;
         margin: 0 4px;
     }
 
     a:hover {
-        border-bottom: 2px solid #f2f2f2a3;
+        box-shadow: 0px 2px 0px 0px #f2f2f2a3;
     }
 `;
 
@@ -94,21 +93,4 @@ export const Attribution = styled(MetadataContent)`
 export const Geolocation = styled(MetadataContent)`
     right: 0;
     margin-left: auto;
-`;
-
-export const Time = styled.h1`
-	margin: 0;
-	color: white;
-	font-size: 8rem;
-	font-weight: 700;
-	width: min-content;
-	transform: translate(-50%, -50%);
-	left: 50%;
-	top: 50%;
-    position: absolute;
-    transition: 0.7s opacity;
-    
-    ${({ visible }: { visible: boolean }) => css`
-        opacity: ${visible ? 1 : 0};
-    `};
 `;

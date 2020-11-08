@@ -8,19 +8,23 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-import { MountEverest, BackgroundDisplay, Attribution, Geolocation, Metadata, Time } from './style';
+import { MountEverest, BackgroundDisplay, Attribution, Geolocation, Metadata } from './style';
 
 import "./layout.css"
 import "fontsource-inter/latin.css"
 
 import { unsplashPlugin } from "../plugins/unsplash";
-import { Link } from "gatsby";
+
+import useWindowFocus from "use-window-focus";
+
+import { Time } from "../widgets/Time";
 
 const Layout = ({ children }) => {
 	const localStorageState = typeof(localStorage) !== "undefined" && localStorage.getItem("settings")
 
+	const isWindowFocused = useWindowFocus();
+
 	const [widgetsReady, setWidgetsReady] = React.useState(false);
-	const [time, setTime] = React.useState("");
 
 	const [background, setBackground] = React.useState();
 	const [backgroundSet, setBackgroundSet] = React.useState(false);
@@ -58,26 +62,6 @@ const Layout = ({ children }) => {
 		alert(`Copied "${data}" to clipboard.`)
 	}
 
-	setInterval(() => {
-		const d = new Date();
-
-		const getH = () => {
-			return d.getHours().toString().length == 1 ? "0" + d.getHours() : d.getHours()
-		}
-
-		const getM = () => {
-			return d.getMinutes().toString().length == 1 ? "0" + d.getMinutes() : d.getMinutes()
-		}
-
-		const getS = () => {
-			return d.getSeconds().toString().length == 1 ? "0" + d.getSeconds() : d.getSeconds()
-		}
-
-		setTime(`${getH()}:${getM()}`)
-
-		if(!widgetsReady) setWidgetsReady(true);
-	}, 2500);
-	
 	React.useEffect(() => {
 		if(backgroundSet) return;
 
@@ -87,7 +71,6 @@ const Layout = ({ children }) => {
 			setBackground(url);
 			setBackgroundSet(true);
 		})
-
 	}, [setState, state.background]);
 
 	return (
@@ -100,17 +83,15 @@ const Layout = ({ children }) => {
 			/>
 
 			<MountEverest>
-				<Time visible={widgetsReady}>
-					{time}
-				</Time>
+				<Time />
 
 				<Metadata visible={backgroundLoaded} onMouseEnter={() => setBackgroundDimmed(true)} onMouseLeave={() => setBackgroundDimmed(false)}>
 					<Attribution>
-						Photo by <Link target={"__blank"} to={`https://unsplash.com/@${state.attribution.logon}`}>{state.attribution.name}</Link> on <Link target={"__blank"} to={`https://unsplash.com`}>Unsplash</Link>
+						Photo by <a target={"__blank"} href={`https://unsplash.com/@${state.attribution.logon}`}>{state.attribution.name}</a> on <a target={"__blank"} href={`https://unsplash.com`}>Unsplash</a>
 					</Attribution>
 
 					{state.location && <Geolocation>
-						<Link to={"#"} onClick={() => copyCoords(state.location)}>{state.location.pretty}</Link>
+						<a style={{ cursor: "pointer" }} onClick={() => copyCoords(state.location)}>{state.location.pretty}</a>
 					</Geolocation>}
 				</Metadata>
 

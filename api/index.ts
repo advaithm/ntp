@@ -1,5 +1,5 @@
 import axios from 'axios';
-import express from 'express';
+import * as express from 'express';
 import * as proxy from 'express-http-proxy';
 import * as rateLimit from 'express-rate-limit';
 

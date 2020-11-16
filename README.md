@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://images.emojiterra.com/twitter/v12/512px/1f9ed.png"/>
+  <img src="https://twemoji.maxcdn.com/v/13.0.1/svg/1f9ed.svg"/>
 </p>
 
 <h1 align="center">

@@ -9,20 +9,10 @@ app.get('/api', (req: any, res: any) => {
     })
 })
 
-app.use((req: any, res: any) => {
-    res.status(400);
-    res.json({
-        ok: false,
-        statusCode: 404
-    })
-});
-   
-app.use((req: any, res: any) => {
-    res.status(500);
-    res.json({
-        ok: false,
-        statusCode: 500
-    })
+app.use((err: any, req: any, res: any) => {
+    if(err) {
+        res.redirect(`https://dothq.co${req.url}`)
+    }
 });
 
 const port = process.env.PORT || 3000;

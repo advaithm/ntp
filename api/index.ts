@@ -1,46 +1,32 @@
-import axios from 'axios';
-import * as express from 'express';
-import * as proxy from 'express-http-proxy';
-import * as rateLimit from 'express-rate-limit';
+const express = require('express');
+const app = express();
+const request = require("request")
 
-require('dotenv').config()
-
-const app = express()
-const port = process.env.NODE_ENV == "development" ? 3000 : 3064
-
-const ratelimiter = rateLimit({
-    windowMs: 15 * 60 * 1000,
-    max: 3
+app.get('/', express.static("../public"))
+app.get('/api', (req: any, res: any) => {
+    res.json({
+        ok: true
+    })
 })
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
+app.use((req: any, res: any) => {
+    res.status(400);
+    res.json({
+        ok: false,
+        statusCode: 404
+    })
+});
+   
+app.use((req: any, res: any) => {
+    res.status(500);
+    res.json({
+        ok: false,
+        statusCode: 500
+    })
 });
 
-app.get('/api/unsplash/wallpaper', ratelimiter, (req, res) => {
-    axios.get("https://api.unsplash.com/photos/random?collections=67042424&count=1", { headers: { authorization: `Client-ID ${process.env.UNSPLASH_KEY}` } })
-        .then(resp => {
-            res.json({ 
-                url: resp.data[0].urls.raw, 
-                location: resp.data[0].location.name && {
-                    pretty: resp.data[0].location.name,
-                    position: [resp.data[0].location.position.latitude, resp.data[0].location.position.longitude]
-                },
-                attribution: { 
-                    name: resp.data[0].user.name, 
-                    logon: resp.data[0].user.username, 
-                    originalPhoto: resp.data[0].links.html 
-                } 
-            });
-        })
-})
+const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
-  console.log(`App listening at http://localhost:${port}`)
-})
+app.listen(port)
 
-if(process.env.NODE_ENV == "development") {
-    
-} else app.use(express.static("public"));
+module.exports = app

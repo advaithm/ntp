@@ -51,9 +51,9 @@
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "develop:api": "NODE_ENV=development ts-node -T api",
-    "prod:api": "ts-node -T api",
+    "prod:api": "tsc",
     "prod": "npm run build && npm run serve",
-    "deploy": "vercel"
+    "deploy": "tsc && vercel"
   },
   "repository": {
     "type": "git",

@@ -30,9 +30,11 @@ const Layout = ({ children }) => {
 
 	const defaultState = {
 		attribution: {
-			name: "",
-			logon: "",
-			originalPhoto: ""
+			l: "",
+			lp: [],
+			n: "",
+			p: "",
+			usn: "",
 		},
 		location: null,
 		background: { 
@@ -64,11 +66,11 @@ const Layout = ({ children }) => {
 
 		setBackgroundGetProcess(true);
 
-		unsplashPlugin.api.getBackground().then(({ url, attribution, location }) => {
-			setState({ attribution, location: !!location ? location : null })
+		unsplashPlugin.api.getBackground().then(imageData => {
+			setBackground(imageData.image)
+			setBackgroundSet(true)
 
-			setBackground(url);
-			setBackgroundSet(true);
+			setState({ attribution: imageData.attribution, location: imageData.attribution.l })
 		})
 	}, [setState, state.background]);
 
@@ -86,11 +88,11 @@ const Layout = ({ children }) => {
 
 				<Metadata visible={backgroundLoaded} onMouseEnter={() => setBackgroundDimmed(true)} onMouseLeave={() => setBackgroundDimmed(false)}>
 					<Attribution>
-						<a target={"__blank"} href={state.attribution.originalPhoto}>Photo</a> by <a target={"__blank"} href={`https://unsplash.com/@${state.attribution.logon}`}>{state.attribution.name}</a> on <a target={"__blank"} href={`https://unsplash.com`}>Unsplash</a>
+						<a target={"__blank"} href={state.attribution.p}>Photo</a> by <a target={"__blank"} href={`https://unsplash.com/@${state.attribution.usn}`}>{state.attribution.n}</a> on <a target={"__blank"} href={`https://unsplash.com`}>Unsplash</a>
 					</Attribution>
 
-					{state.location && <Geolocation>
-						<a style={{ cursor: "pointer" }} onClick={() => copyCoords(state.location)}>{state.location.pretty}</a>
+				{state.location && <Geolocation>
+						<a style={{ cursor: "pointer" }} onClick={() => copyCoords(state.location)}>{state.location}</a>
 					</Geolocation>}
 				</Metadata>
 

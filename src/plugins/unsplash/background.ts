@@ -1,34 +1,48 @@
 import axios from "axios"
 import localforage from 'localforage';
 
-const url = "/api/unsplash/wallpaper"
+const url = "http://localhost:5001/ntp/unsplash"
 
 export const getBackground = async () => {
     return new Promise(async (resolve, reject) => {
-        localforage.getItem("background-cache").then((value: any) => {
-            if(value == null || Date.now() >= value.exp) return resolve(getFreshBackground())
+        localforage.getItem("backgrounds-cache").then((value: any) => {
+            if(value == null) return resolve(getFreshBackgroundList())
 
-            resolve(value)
+            const image = { image: value.data.images[0], attribution: value.data.attributions[0] }
+
+            if(image == null) return resolve(getFreshBackgroundList())
+            if(Date.now() >= value.exp) return resolve(getFreshBackground())
+
+            resolve(image)
         }).catch((err) => {
             console.log(err)
-            getFreshBackground();
+            getFreshBackgroundList();
             resolve(true)
         });
     })
 }
 
 const getFreshBackground = () => {
-    return axios.get(url).then(metadata => {
-        return axios.get(`${metadata.data.url}&w=1920&h=1080`, { responseType: "arraybuffer" })
-            .then(async image => await addToCache(image.data, metadata.data))
-            .catch(e => {
-                console.log(e.message)
-                return ""
-            })
-    }).catch(e => {
-        console.log(e.message)
-        return ""
-    })
+    return localforage.getItem("backgrounds-cache") // get backgrounds cache
+        .then((value: any) => {
+            value.data.images.splice(0, 1) // delete first item of the array
+            value.data.attributions.splice(0, 1)
+
+            setCache(value.data.images, value.data.attributions) // refresh cache with next item in list
+
+
+            console.log(value.data.images[0], value.data.attributions[0])
+            return { image: value.data.images[0], attribution: value.data.attributions[0] } // return first item of list
+        })
+}
+
+const getFreshBackgroundList = () => {
+    return axios.get(url)
+        .then(async res => { const attribution = JSON.parse(res.headers["x-attribution-data"]); await setCache(res.data, attribution); return { image: res.data, attribution: attribution } })
+        .catch(e => {
+            console.log(e)
+            return ""
+        })
 }
 
 const createObjectURL = (data) => {
@@ -38,11 +52,11 @@ const createObjectURL = (data) => {
     return imageURI;
 }
 
-const addToCache = (image, metadata) => {
+const setCache = (images, attributions) => {
     return new Promise((resolve, reject) => {
-        const exp = Date.now()+24*60*60*1000
+        const exp = Date.now()+15*1000
 
-        localforage.setItem("background-cache", { exp, data: image, ...metadata }).then(data => resolve(data)).catch(function(err) {
+        localforage.setItem("backgrounds-cache", { exp, data: { images: images, attributions: attributions } }).then(data => resolve(data)).catch(function(err) {
             console.log(err);
             reject(err);
         });

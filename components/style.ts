@@ -5,6 +5,8 @@ export const GlobalStyle = `
     body {
         padding: 0;
         margin: 0;
+        height: 100%;
+        width: 100%; 
         background-color: black;
         font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
             Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
@@ -15,3 +17,4 @@ export const GlobalStyle = `
         box-sizing: border-box;
     }
 `;
+

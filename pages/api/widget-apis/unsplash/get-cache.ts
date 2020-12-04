@@ -9,17 +9,21 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
         authorization: `Client-ID ${process.env.UNSPLASH_API_KEY}`
     } })
         .then(resp => {
-            res.setHeader("X-Attribution-Data", JSON.stringify(resp.data.map((i: any) => { return { 
-                p: i.links.html.split("/photos/")[1], 
-                l: i.location.name, 
-                lp: [
-                    i.location.position.latitude, 
-                    i.location.position.longitude
-                ], 
-                usn: i.user.username, 
-                n: i.user.name 
-            } })))
-            res.send({ ix: resp.data[0].urls.raw.split("?ixid=")[1].split("&ixlib")[0], i: resp.data.map((i: any) => { return `${i.urls.raw.split("https://images.unsplash.com/photo-")[1].split("?ixid=")[0]}` }) })
+            const images = { 
+                images: resp.data.map((i: any) => { return { 
+                    id: i.urls.raw.split("https://images.unsplash.com/photo-")[1].split("?ixid=")[0],
+                    p: i.links.html.split("/photos/")[1], 
+                    l: i.location.name, 
+                    lp: [
+                        i.location.position.latitude, 
+                        i.location.position.longitude
+                    ], 
+                    usn: i.user.username, 
+                    n: i.user.name 
+                } }),
+                ix: resp.data[0].urls.raw.split("?ixid=")[1].split("&ixlib")[0]
+            }
+            res.send(images)
         })
         .catch(e => console.log(e))
 }

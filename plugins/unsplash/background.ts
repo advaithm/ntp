@@ -22,8 +22,6 @@ export const getBackground = () => {
 export const getFreshBackgrounds = () => {
   return axios.get(url)
     .then(async res => {
-      console.log(res.data)
-      addToCache(res.data.images)
       return res.data.images[0]
     })
 }

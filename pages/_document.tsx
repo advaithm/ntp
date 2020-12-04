@@ -25,9 +25,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <style global jsx>{`
-            ${GlobalStyle}
-          `}</style>
+          <link rel="icon" href="data:," />
         </Head>
         <body>
           <Main />

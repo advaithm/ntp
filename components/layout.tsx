@@ -38,7 +38,8 @@ const Layout = ({ children }) => {
 
     const image = getBackground()
     .then(image => {
-      setBackground("https://images.unsplash.com/photo-" + image.id)
+      console.log(image)
+      setBackground("https://images.unsplash.com/photo-" + image.id + "?w=1920")
 
       setBackgroundSet(true)
     })

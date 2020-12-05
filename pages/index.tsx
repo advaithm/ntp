@@ -4,6 +4,7 @@ import Layout from '../components/layout'
 import axios from 'axios'
 
 import { Attribution } from "../components/types"
+import { getUnsplash } from '../src/get-unsplash';
 
 const NTPPage = ({ background, attribution }: { background: string; attribution: Attribution }) => {
   return (
@@ -13,26 +14,7 @@ const NTPPage = ({ background, attribution }: { background: string; attribution:
 }
 
 export const getServerSideProps = async () => {
-  const { data: image } = await axios.get(`https://api.unsplash.com/photos/random?collections=67042424&orientation=landscape`, { headers: {
-    authorization: `Client-ID ${process.env.UNSPLASH_API_KEY}`
-  }})
-
-  if(image) {
-    const attribution: Attribution = {
-      p: image.links.html,
-      l: image.location.name, 
-      lp: [
-        image.location.position.latitude, 
-        image.location.position.longitude
-      ], 
-      usn: image.user.username, 
-      n: image.user.name 
-    }
-  
-    return {
-      props: { background: image.urls.raw + "&w=1920", attribution: attribution }
-    }
-  }
+  return await getUnsplash()
 };
 
 export default NTPPage;

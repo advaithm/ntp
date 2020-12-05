@@ -31,6 +31,8 @@ const Layout = ({ children, background, attribution }: { children: any; backgrou
 				<Time />
 				<Metadata attribution={attribution} actions={[setBackgroundDimmed]} />
 			</MountEverest>}
+
+			{children}
 		</>
 	)
 }

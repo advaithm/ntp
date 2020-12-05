@@ -16,20 +16,20 @@ export class Settings {
         }))
     }
 
-    private get(key?: string) {
+    private get() {
         const data = localStorage.getItem(`widget-${this.id}`)
 
-        if(!data || (JSON.parse(data) && JSON.parse(data).id !== this.id) || (key && typeof(JSON.parse(data)[key]) == "undefined")) throw new Error("Malformed data.")
+        if(!data || (JSON.parse(data) && JSON.parse(data).id !== this.id)) throw new Error("Malformed data.")
     
         return JSON.parse(data);
     }
 
     public getItem(key: string) {
-        return this.get(key)[key];
+        return this.get()[key];
     }
 
     public setItem(key: string, value: string) {
-        const item = this.get(key);
+        const item = this.get();
 
         item.data[key] = value;
 

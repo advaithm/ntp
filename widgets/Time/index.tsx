@@ -1,14 +1,13 @@
 import React from "react";
 
-import { Widget, WidgetProps } from "..";
+import { WidgetComponent, WidgetProps } from "..";
+import { Widgets } from "../../src/widget";
 import { StyledWidget } from "../style";
 
 import { StyledTime } from "./style";
 
-export class Time<WidgetProps> extends Widget {
-    private timeIntervalId: number;
-
-    public props: WidgetProps;
+export class Time<WidgetProps> extends WidgetComponent {
+    private timeIntervalId: number | undefined;
 
     public state = {
         time: ''
@@ -17,12 +16,16 @@ export class Time<WidgetProps> extends Widget {
     public constructor(props: WidgetProps) {
         super(props);
 
-        this.name = 'Time';
-        this.id = 'co.dothq.time';
-        this.author = 'Dot HQ <contact@dothq.co>';
+        Widgets.registerWidget({
+            id: "co.dothq.time",
+            name: "Time",
+            author: "Dot HQ <contact@dothq.co>",
+            component: this
+        })
     }
 
     public componentDidMount() {
+        this.tick()
         this.timeIntervalId = setInterval(() => this.tick(), 500);
     }
 
@@ -46,13 +49,11 @@ export class Time<WidgetProps> extends Widget {
         }
 
         this.setState({ time: [getH(), getM(), getS()].join(":") })
-
-        if(!this.visible) this.visible = true;
     }
 
     public render() {
         return (
-            <StyledWidget visible={this.visible} position={this.position}>
+            <StyledWidget visible={true} position={this.position}>
                 <StyledTime>
                     {this.state.time}
                 </StyledTime>

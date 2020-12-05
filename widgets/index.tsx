@@ -15,10 +15,10 @@ export interface WidgetProps {
     visible?: boolean
 }
 
-export class Widget extends React.Component<WidgetProps> {
-    public name: WidgetName = 'Widget';
-    public id: WidgetId = 'co.dothq.widget';
-    public author: WidgetAuthor = 'Widget <foo@example.com>';
+export class WidgetComponent extends React.Component {
+    public name: WidgetName | undefined;
+    public id: WidgetId | undefined;
+    public author: WidgetAuthor | undefined;
 
     private _visible: boolean = false;
 

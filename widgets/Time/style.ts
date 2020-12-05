@@ -9,5 +9,5 @@ export const StyledTime = styled.time`
 	transform: translate(-50%, -50%);
 	left: 50%;
 	top: 50%;
-    position: absolute;
+	position: absolute;
 `;

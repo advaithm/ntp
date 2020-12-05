@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import NTPPage from '.';
 
 const App = ({ Component, pageProps }: { Component: any, pageProps: any }) => {
   return (
@@ -7,7 +8,7 @@ const App = ({ Component, pageProps }: { Component: any, pageProps: any }) => {
       <Head>
         <title>New Tab</title>
       </Head>
-      <Component {...pageProps} />
+      <NTPPage {...pageProps} />
     </>
   )
 }

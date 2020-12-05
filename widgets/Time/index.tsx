@@ -8,8 +8,6 @@ import { StyledTime } from "./style";
 export class Time<WidgetProps> extends Widget {
     private timeIntervalId: number;
 
-    public props: WidgetProps;
-
     public state = {
         time: ''
     }
@@ -20,6 +18,8 @@ export class Time<WidgetProps> extends Widget {
         this.name = 'Time';
         this.id = 'co.dothq.time';
         this.author = 'Dot HQ <contact@dothq.co>';
+
+        this.timeIntervalId = setInterval(() => this.tick(), 500);
     }
 
     public componentDidMount() {

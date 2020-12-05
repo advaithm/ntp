@@ -12,17 +12,16 @@ export const Metadata = ({ attribution }: { attribution: Attribution }) => {
 		else data = location.l;
 
 		navigator.clipboard.writeText(data);
-    console.log(location)
 		alert(`Copied "${data}" to clipboard.`)
   }
   
   return (
     <>
-      <AttributionText>
+      {attribution && <AttributionText>
 			  <a target={"__blank"} href={attribution.p}>Photo</a> by <a target={"__blank"} href={`https://unsplash.com/@${attribution.usn}`}>{attribution.n}</a> on <a target={"__blank"} href={`https://unsplash.com`}>Unsplash</a>
-			</AttributionText>
+			</AttributionText>}
 
-	    {attribution.l && <Geolocation>
+	    {attribution && <Geolocation>
 			  <a style={{ cursor: "pointer" }} onClick={() => copyCoords(attribution)}>{attribution.l}</a>
       </Geolocation>}
     </>

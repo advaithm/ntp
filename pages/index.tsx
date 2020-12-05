@@ -12,7 +12,7 @@ const NTPPage = ({ background, attribution }: { background: string; attribution:
   )
 }
 
-export const getServerSideProps = async (ctx: NextPageContext) => {
+export const getServerSideProps = async () => {
   const { data: image } = await axios.get(`https://api.unsplash.com/photos/random?collections=67042424&orientation=landscape`, { headers: {
     authorization: `Client-ID ${process.env.UNSPLASH_API_KEY}`
   }})

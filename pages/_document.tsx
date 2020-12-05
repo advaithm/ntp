@@ -2,7 +2,6 @@ import React from 'react';
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 
 import { ServerStyleSheet } from 'styled-components';
-import { GlobalStyle } from '../components/globalStyle';
 
 export default class MyDocument extends Document {
   public props: any = {
@@ -25,7 +24,7 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link rel="icon" href="data:," />
+          <link rel="icon" href="" />
         </Head>
         <body>
           <Main />

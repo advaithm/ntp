@@ -2,30 +2,35 @@ import React from 'react'
 
 import { MountEverest, BackgroundDisplay } from "./styles"
 import { Time } from "../widgets/Time"
-import { Metadata } from "./Metadata"
-
-import { GlobalStyle } from './globalStyle';
+import { Metadata } from "../widgets/Metadata"
 
 import { Attribution } from "./types"
 
+import { Widgets } from '../src/widget'
+
 const Layout = ({ children, background, attribution }: { children: any; background: string; attribution: Attribution }) => {
+	const [ready, setReady] = React.useState(false);
+	const [backgroundLoaded, setBackgroundLoaded] = React.useState(false);
 	const [backgroundDimmed, setBackgroundDimmed] = React.useState(false);
+
+	React.useEffect(() => {
+		setReady(true);
+
+		if(typeof(window) !== "undefined") (window as any)["Widgets"] = Widgets;
+	});
 
 	return (
 		<>
-		<GlobalStyle />
 			<BackgroundDisplay 
 				src={background} 
 				loaded={true} 
 				dimmed={backgroundDimmed}
+				onLoad={() => setBackgroundLoaded(true)}
 			/>
-			<MountEverest>
+			{ready && <MountEverest>
 				<Time />
-
-				<div onMouseEnter={() => setBackgroundDimmed(true)} onMouseLeave={() => setBackgroundDimmed(false)}>
-					<Metadata attribution={attribution}/>
-				</div>
-			</MountEverest>
+				<Metadata attribution={attribution} actions={[setBackgroundDimmed]} />
+			</MountEverest>}
 		</>
 	)
 }

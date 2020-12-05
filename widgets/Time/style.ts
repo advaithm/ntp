@@ -1,8 +1,6 @@
 import styled, { css } from "styled-components";
 
 export const StyledTime = styled.time`
-	animation: fadein 1s;
-
 	margin: 0;
 	color: white;
 	font-size: 8rem;
@@ -12,9 +10,4 @@ export const StyledTime = styled.time`
 	left: 50%;
 	top: 50%;
 	position: absolute;
-	
-	@keyframes fadein {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-	}
 `;

@@ -16,6 +16,9 @@ export const getServerSideProps = async () => {
   const { data: image } = await axios.get(`https://api.unsplash.com/photos/random?collections=67042424&orientation=landscape`, { headers: {
     authorization: `Client-ID ${process.env.UNSPLASH_API_KEY}`
   }})
+  .catch((e) => {
+    console.log(e)
+  })
 
   const attribution: Attribution = {
     p: image.links.html,

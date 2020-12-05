@@ -3,9 +3,9 @@ import React from 'react';
 import Layout from '../components/layout'
 import axios from 'axios'
 
-import { getFreshBackgrounds } from '../plugins/unsplash/background';
+import { Attribution } from "../components/types"
 
-const NTPPage = ({ background, attribution }: { background: string }) => {
+const NTPPage = ({ background, attribution }: { background: string; attribution: Attribution }) => {
   return (
     <Layout background={background} attribution={attribution}>
     </Layout>
@@ -17,7 +17,8 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
     authorization: `Client-ID ${process.env.UNSPLASH_API_KEY}`
   }})
 
-  const attribution = {
+  const attribution: Attribution = {
+    p: image.links.html,
     l: image.location.name, 
     lp: [
       image.location.position.latitude, 
@@ -26,8 +27,6 @@ export const getServerSideProps = async (ctx: NextPageContext) => {
     usn: image.user.username, 
     n: image.user.name 
   }
-
-  console.log({ background: image.urls.raw + "&w=1920", attribution: attribution })
 
   return {
     props: { background: image.urls.raw + "&w=1920", attribution: attribution }

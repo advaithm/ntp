@@ -1,7 +1,9 @@
-import { MetadataContainer, MetadataContent, Attribution, Geolocation } from "../styles"
+import { MetadataContainer, MetadataContent, AttributionText, Geolocation } from "../styles"
 
-export const Metadata = ({ attribution }) => {
-  const copyCoords = (location) => {
+import { Attribution } from "../types"
+
+export const Metadata = ({ attribution }: { attribution: Attribution }) => {
+  const copyCoords = (location: Attribution) => {
 		if(typeof(navigator) == "undefined") return;
 
 		let data = "";
@@ -16,9 +18,9 @@ export const Metadata = ({ attribution }) => {
   
   return (
     <>
-      <Attribution>
+      <AttributionText>
 			  <a target={"__blank"} href={attribution.p}>Photo</a> by <a target={"__blank"} href={`https://unsplash.com/@${attribution.usn}`}>{attribution.n}</a> on <a target={"__blank"} href={`https://unsplash.com`}>Unsplash</a>
-			</Attribution>
+			</AttributionText>
 
 	    {attribution.l && <Geolocation>
 			  <a style={{ cursor: "pointer" }} onClick={() => copyCoords(attribution)}>{attribution.l}</a>

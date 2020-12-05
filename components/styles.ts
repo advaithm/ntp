@@ -86,7 +86,7 @@ export const MetadataContent = styled.div`
     }
 `;
 
-export const Attribution = styled(MetadataContent)`
+export const AttributionText = styled(MetadataContent)`
     left: 0;
 `;
 

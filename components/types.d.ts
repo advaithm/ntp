@@ -1,0 +1,1 @@
+export type Attribution = { p: string; l: string; lp: [number, number]; usn: string; n: string }

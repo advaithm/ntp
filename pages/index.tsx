@@ -5,7 +5,7 @@ import axios from 'axios'
 
 import { getFreshBackgrounds } from '../plugins/unsplash/background';
 
-const NTPPage = ({ background, attribution }: { background: string; attribution: { l: string; lp: [number]; usn: string; n: string } }) => {
+const NTPPage = ({ background, attribution }: { background: string }) => {
   return (
     <Layout background={background} attribution={attribution}>
     </Layout>

@@ -1,7 +1,7 @@
 import { MetadataContainer, MetadataContent, Attribution, Geolocation } from "../styles"
 
-export const Metadata = ({ attribution }: { attribution: { l: string; lp: [number]; usn: string; n: string } }) => {
-  const copyCoords = (location: { l: string; lp: [number]; usn: string; n: string }) => {
+export const Metadata = ({ attribution }) => {
+  const copyCoords = (location) => {
 		if(typeof(navigator) == "undefined") return;
 
 		let data = "";

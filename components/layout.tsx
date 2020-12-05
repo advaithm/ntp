@@ -6,7 +6,7 @@ import { Metadata } from "./Metadata"
 
 import { GlobalStyle } from './globalStyle';
 
-const Layout = ({ children, background, attribution }: { children: any; background: string; attribution: { l: string; lp: [number]; usn: string; n: string } }) => {
+const Layout = ({ children, background, attribution }: { children: any; background: string }) => {
 	const [backgroundDimmed, setBackgroundDimmed] = React.useState(false);
 
 	return (

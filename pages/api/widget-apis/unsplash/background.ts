@@ -10,6 +10,17 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     } })
         .then(resp => {
             res.redirect(301, `${resp.data.urls.raw.split("?")[0]}?w=1920`)
+            const i = resp.data
+            const attribution = {
+                l: i.location.name, 
+                lp: [
+                    i.location.position.latitude, 
+                    i.location.position.longitude
+                ], 
+                usn: i.user.username, 
+                n: i.user.name 
+            }
+            res.send({ src: `${i.urls.raw.split("?")[0]}?w=1920`, attribution: attribution })
         })
         .catch(e => console.log(e))
 }

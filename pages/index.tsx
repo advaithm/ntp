@@ -5,19 +5,33 @@ import axios from 'axios'
 
 import { getFreshBackgrounds } from '../plugins/unsplash/background';
 
-const NTPPage = ({ background }: { background: string }) => {
+const NTPPage = ({ background, attribution }: { background: string; attribution: { l: string; lp: [number]; usn: string; n: string } }) => {
   return (
-    <Layout background={background}>
+    <Layout background={background} attribution={attribution}>
     </Layout>
   )
 }
 
-NTPPage.getInitialProps = async (ctx: NextPageContext) => {
+export const getServerSideProps = async (ctx: NextPageContext) => {
   const { data: image } = await axios.get(`https://api.unsplash.com/photos/random?collections=67042424&orientation=landscape`, { headers: {
     authorization: `Client-ID ${process.env.UNSPLASH_API_KEY}`
   }})
 
-  return { background: image.urls.raw + "&w=1920" }
+  const attribution = {
+    l: image.location.name, 
+    lp: [
+      image.location.position.latitude, 
+      image.location.position.longitude
+    ], 
+    usn: image.user.username, 
+    n: image.user.name 
+  }
+
+  console.log({ background: image.urls.raw + "&w=1920", attribution: attribution })
+
+  return {
+    props: { background: image.urls.raw + "&w=1920", attribution: attribution }
+  }
 };
 
 export default NTPPage;

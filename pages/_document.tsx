@@ -2,7 +2,7 @@ import React from 'react';
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 
 import { ServerStyleSheet } from 'styled-components';
-import { GlobalStyle } from '../components/style';
+import { GlobalStyle } from '../components/globalStyle';
 
 export default class MyDocument extends Document {
   public props: any = {

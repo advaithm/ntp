@@ -9,7 +9,7 @@ import { Attribution } from "./types"
 import { Widgets } from '../src/widget'
 import { Settings } from '../widgets/Settings'
 
-const Layout = ({ children, background, attribution }: { children: any; background: string | null; attribution: Attribution | null }) => {
+const Layout = ({ children, background, attribution }: { children: any; background: string; attribution: Attribution }) => {
 	const [ready, setReady] = React.useState(false);
 	const [backgroundLoaded, setBackgroundLoaded] = React.useState(false);
 	const [backgroundDimmed, setBackgroundDimmed] = React.useState(false);

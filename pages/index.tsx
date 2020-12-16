@@ -10,20 +10,19 @@ import { log } from '../tools/log';
 import localForage from 'localforage';
 
 const NTPPage = ({ background, attribution }: { background: string; attribution: Attribution }) => {
-  const [backgroundImage, setBackgroundImage] = React.useState<string | null>("")
-  const [attributionData, setAttributionData] = React.useState<Attribution | null>({ p: "", l: "", lp: [0, 0], usn: "", n: "" })
+  const [backgroundImage, setBackgroundImage] = React.useState<string>("")
+  const [attributionData, setAttributionData] = React.useState<Attribution>({ p: "", l: "", lp: [0, 0], usn: "", n: "" })
 
   React.useEffect(() => {
     if(!background) {
       localForage.getItem<string>("wallpaper-cache")
         .then((cachedWallpaper) => {
-          setBackgroundImage(cachedWallpaper)
+          setBackgroundImage(cachedWallpaper ?? "")
         })
         .catch((e) => console.log(e))
       localForage.getItem<Attribution>("attribution-cache")
         .then((cachedAttribution) => {
-          console.log(cachedAttribution)
-          setAttributionData(cachedAttribution)
+          setAttributionData(cachedAttribution ?? { p: "", l: "", lp: [0, 0], usn: "", n: "" })
         })
         .catch((e) => console.log(e))
       return
@@ -44,7 +43,7 @@ const NTPPage = ({ background, attribution }: { background: string; attribution:
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSidePropsContext) => {
+export const getServerSideProps = async (ctx: any) => {
   if (ctx.req.cookies.backgroundSet) return { props: { background: "", attribution: {} }};
   const img = await getUnsplash() ?? { background: "", attribution: {} }
   return {

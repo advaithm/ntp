@@ -10,17 +10,17 @@ import { log } from '../tools/log';
 import localForage from 'localforage';
 
 const NTPPage = ({ background, attribution }: { background: string; attribution: Attribution }) => {
-  const [backgroundImage, setBackgroundImage] = React.useState("")
-  const [attributionData, setAttributionData] = React.useState<Attribution>()
+  const [backgroundImage, setBackgroundImage] = React.useState<string | null>("")
+  const [attributionData, setAttributionData] = React.useState<Attribution | null>({ p: "", l: "", lp: [0, 0], usn: "", n: "" })
 
   React.useEffect(() => {
     if(!background) {
-      localForage.getItem("wallpaper-cache")
+      localForage.getItem<string>("wallpaper-cache")
         .then((cachedWallpaper) => {
           setBackgroundImage(cachedWallpaper)
         })
         .catch((e) => console.log(e))
-      localForage.getItem("attribution-cache")
+      localForage.getItem<Attribution>("attribution-cache")
         .then((cachedAttribution) => {
           console.log(cachedAttribution)
           setAttributionData(cachedAttribution)
@@ -39,7 +39,8 @@ const NTPPage = ({ background, attribution }: { background: string; attribution:
   }, [background])
 
   return (
-    <Layout background={backgroundImage} attribution={attributionData} />
+    <Layout background={backgroundImage} attribution={attributionData}>
+    </Layout>
   )
 }
 

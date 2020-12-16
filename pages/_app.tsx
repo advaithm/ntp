@@ -14,7 +14,6 @@ const App = ({ Component, pageProps }: { Component: any, pageProps: any }) => {
         <title>New Tab</title>
       </Head>
       <NTPPage {...pageProps} />
-      <Component />
       {typeof(window) !== "undefined" && window.location.pathname.startsWith("/settings") && <Settings />}
     </>
   )

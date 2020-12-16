@@ -1,10 +1,15 @@
 import styled, { css } from "styled-components";
 
 export const MetadataContainer = styled.div`
-	display: flex;
+    display: flex;
 	justify-content: center;
 	align-items: end;
-	height: 100vh;
+    height: 100vh;
+    width: 100vw;
+
+    position: absolute;
+    left: 0;
+    top: 0;
 `;
 
 export const MetadataContent = styled.div`

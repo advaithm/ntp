@@ -6,6 +6,7 @@ export const MountEverest = styled.main`
     top: 0;
     overflow: hidden;
     transition: 0.3s width, 0.3s left;
+    display: flex;
 
     ${({ settingsVisible }: { settingsVisible: boolean }) => css`
         width: calc(${settingsVisible ? `100% - 250px` : `100%`});

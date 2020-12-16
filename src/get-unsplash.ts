@@ -19,7 +19,8 @@ export const getUnsplash = async () => {
         }
         
         return {
-            props: { background: image.urls.raw + "&w=1920", attribution: attribution }
+            background: image.urls.raw + "&w=1920", 
+            attribution: attribution
         }
     }
 }

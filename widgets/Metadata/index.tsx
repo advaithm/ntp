@@ -13,7 +13,7 @@ export class Metadata<Props> extends WidgetComponent {
         actions: []
     }
 
-    public constructor(props: Props) {
+    public constructor(props: any) {
         super(props);
 
         Widgets.registerWidget({

@@ -1,25 +1,15 @@
 import styled, { css } from "styled-components";
 
 export const MetadataContainer = styled.div`
-    opacity: 0;
-    transition: 0.7s opacity ease-out 1s;
-
-    width: 100%;
-    height: 64px;
-    position: fixed;
-    bottom: 0;
-    flex-direction: row;
-    display: flex;
-
-    ${({ visible }: { visible: boolean }) => css`
-        opacity: ${visible ? 1 : 0};
-    `};
+	display: flex;
+	justify-content: center;
+	align-items: end;
+	height: 100vh;
 `;
 
 export const MetadataContent = styled.div`
     padding: 16px 22px;
     font-size: 16px;
-    position: fixed;
     bottom: 0;
     transition: 0.7s color;
     color: #b8b8b8a3;

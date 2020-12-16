@@ -7,11 +7,14 @@ import { Metadata } from "../widgets/Metadata"
 import { Attribution } from "./types"
 
 import { Widgets } from '../src/widget'
+import { Settings } from '../widgets/Settings'
 
 const Layout = ({ children, background, attribution }: { children: any; background: string; attribution: Attribution }) => {
 	const [ready, setReady] = React.useState(false);
 	const [backgroundLoaded, setBackgroundLoaded] = React.useState(false);
 	const [backgroundDimmed, setBackgroundDimmed] = React.useState(false);
+
+	const [settingsVisible, setSettingsVisible] = React.useState(false);
 
 	React.useEffect(() => {
 		setReady(true);
@@ -26,12 +29,16 @@ const Layout = ({ children, background, attribution }: { children: any; backgrou
 				loaded={true} 
 				dimmed={backgroundDimmed}
 				onLoad={() => setBackgroundLoaded(true)}
+				settingsVisible={settingsVisible}
 			/>
-			{ready && <MountEverest>
-				<Time />
-				<Metadata attribution={attribution} actions={[setBackgroundDimmed]} />
-			</MountEverest>}
-
+			<div style={{ display: "flex", flexDirection: "row" }}>
+				{settingsVisible && <Settings />}
+				{ready && <MountEverest settingsVisible={settingsVisible}>
+					<button onClick={() => setSettingsVisible(!settingsVisible)}>settings</button>
+					<Time />
+					<Metadata attribution={attribution} actions={[setBackgroundDimmed]} />
+				</MountEverest>}
+			</div>
 			{children}
 		</>
 	)

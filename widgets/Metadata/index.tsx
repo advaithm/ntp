@@ -5,7 +5,7 @@ import { Attribution } from "../../components/types";
 import { Widgets } from "../../src/widget";
 import { StyledWidget } from "../style";
 
-import { AttributionText, Geolocation } from "./style";
+import { AttributionText, Geolocation, MetadataContainer } from "./style";
 
 export class Metadata<Props> extends WidgetComponent {
     public props: any = {
@@ -29,7 +29,7 @@ export class Metadata<Props> extends WidgetComponent {
 
         return (
             <StyledWidget visible={!!attribution} position={this.position}>
-                <div onMouseEnter={() => actions[0](true)} onMouseLeave={() => actions[0](false)}>
+                <MetadataContainer onMouseEnter={() => actions[0](true)} onMouseLeave={() => actions[0](false)}>
                     {attribution && <AttributionText>
                         <a target={"__blank"} href={attribution.p}>Photo</a> by <a target={"__blank"} href={`https://unsplash.com/@${attribution.usn}`}>{attribution.n}</a> on <a target={"__blank"} href={`https://unsplash.com`}>Unsplash</a>
                     </AttributionText>}
@@ -37,7 +37,7 @@ export class Metadata<Props> extends WidgetComponent {
                     {(attribution && attribution.l) && <Geolocation>
                         <a style={{ cursor: "pointer" }}>{attribution.l}</a>
                     </Geolocation>}
-                </div>
+                </MetadataContainer>
             </StyledWidget>
         );
     }

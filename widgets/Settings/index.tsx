@@ -24,12 +24,7 @@ export class Settings extends WidgetComponent {
     public render() {
         return (
             <StyledWidget visible={true} position={this.position}>
-                <Link href={"/"}>
-                    <SettingsBackground />
-                </Link>
-                <SettingsContainer>
-                    <SettingsDialog />
-                </SettingsContainer>
+                hello
             </StyledWidget>
         );
     }

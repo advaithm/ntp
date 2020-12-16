@@ -1,19 +1,22 @@
 import styled, { css } from 'styled-components';
 
 export const MountEverest = styled.main`
-    width: 100%;
     height: 100%;
     position: fixed;
     top: 0;
-    left: 0;
     overflow: hidden;
+    transition: 0.3s width, 0.3s left;
+
+    ${({ settingsVisible }: { settingsVisible: boolean }) => css`
+        width: calc(${settingsVisible ? `100% - 250px` : `100%`});
+        left: ${settingsVisible ? "250px" : "0"};
+    `};
 `;
 
 export const BackgroundDisplay = styled.img`
-    width: 100%;
     height: 100vh;
     object-fit: cover;
-    transition: 0.7s opacity ease-in-out, 0.7s transform, 0.2s filter;
+    transition: 0.7s opacity ease-in-out, 0.7s transform, 0.2s filter, 0.3s width, 0.3s margin-left;
 
     @keyframes fade { 
         from: {
@@ -25,8 +28,11 @@ export const BackgroundDisplay = styled.img`
         }
     }
 
-    ${({ loaded, dimmed }: { loaded: boolean; dimmed: boolean }) => css`
+    ${({ loaded, dimmed, settingsVisible }: { loaded: boolean; dimmed: boolean; settingsVisible: boolean }) => css`
         opacity: ${dimmed ? 0.2 : 0.8};
         transform: scale(${dimmed ? 1.01 : 1});
+
+        width: calc(${settingsVisible ? `100% - 250px` : `100%`});
+        margin-left: ${settingsVisible ? "250px" : "0"};
     `};
 `;

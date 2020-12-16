@@ -24,8 +24,15 @@ const NTPPage = ({ background, attribution }: { background: string; attribution:
   )
 }
 
-export const getServerSideProps = async () => {
-  return await getUnsplash()
+export const getStaticProps = async () => {
+  const img = await getUnsplash() ?? { background: "", attribution: {} }
+  return {
+    revalidate: 60,
+    props: {
+      background: img.background,
+      attribution: img.attribution
+    }
+  }
 };
 
 export default NTPPage;

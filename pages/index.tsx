@@ -16,7 +16,7 @@ const NTPPage = ({ background, attribution }: { background: string; attribution:
 export const getStaticProps = async () => {
   const img = await getUnsplash() ?? { background: "", attribution: {} }
   return {
-    revalidate: 10,
+    revalidate: 60,
     props: {
       background: img.background,
       attribution: img.attribution

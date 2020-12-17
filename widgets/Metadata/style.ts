@@ -3,13 +3,12 @@ import styled, { css } from "styled-components";
 export const MetadataContainer = styled.div`
     display: flex;
 	justify-content: center;
-	align-items: end;
-    height: 100vh;
+    height: 64px;
     width: 100vw;
 
     position: absolute;
     left: 0;
-    top: 0;
+    bottom: 0;
 `;
 
 export const MetadataContent = styled.div`
@@ -20,6 +19,7 @@ export const MetadataContent = styled.div`
     color: #b8b8b8a3;
 
     height: 64px;
+    width: 100vw;
     display: flex;
     align-items: center;
     padding: 0 22px;

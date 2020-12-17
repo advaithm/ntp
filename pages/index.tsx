@@ -32,7 +32,11 @@ const NTPPage = ({ background, attribution }: { background: string; attribution:
 
     localForage.setItem("wallpaper-cache", background);
     localForage.setItem("attribution-cache", attribution)
-    document.cookie = "backgroundSet=true"
+
+    const date = new Date()
+    date.setTime(date.getTime()+(5*60*1000));
+    document.cookie = "backgroundSet=true; expires=" + date.toUTCString()
+    
     setBackgroundImage(background)
     setAttributionData(attribution)
   }, [background])

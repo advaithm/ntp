@@ -9,6 +9,11 @@ export const MetadataContainer = styled.div`
     position: absolute;
     left: 0;
     bottom: 0;
+
+    @media(max-width: 750px) {
+        flex-direction: column;
+        margin-bottom: 22px;
+    }
 `;
 
 export const MetadataContent = styled.div`
@@ -18,8 +23,9 @@ export const MetadataContent = styled.div`
     transition: 0.7s color;
     color: #b8b8b8a3;
 
+    width: 100%;
+
     height: 64px;
-    width: 100vw;
     display: flex;
     align-items: center;
     padding: 0 22px;
@@ -52,9 +58,18 @@ export const MetadataContent = styled.div`
 
 export const AttributionText = styled(MetadataContent)`
     left: 0;
+
+    @media(max-width: 750px) {
+        justify-content: center;
+    }
 `;
 
 export const Geolocation = styled(MetadataContent)`
     right: 0;
+    justify-content: flex-end;
     margin-left: auto;
+
+    @media(max-width: 750px) {
+        justify-content: center;
+    }
 `;

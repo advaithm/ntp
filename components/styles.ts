@@ -19,6 +19,9 @@ export const BackgroundDisplay = styled.img`
     object-fit: cover;
     transition: 0.7s opacity ease-in-out, 0.7s transform, 0.2s filter, 0.3s width, 0.3s margin-left;
 
+    border: 1px solid transparent;
+    outline: none;
+
     @keyframes fade { 
         from: {
             opacity: 0;
@@ -30,6 +33,8 @@ export const BackgroundDisplay = styled.img`
     }
 
     ${({ loaded, dimmed, settingsVisible }: { loaded: boolean; dimmed: boolean; settingsVisible: boolean }) => css`
+        ${loaded ? `animation: 1s fade forwards` : ``};
+
         opacity: ${dimmed ? 0.2 : 0.8};
         transform: scale(${dimmed ? 1.01 : 1});
 

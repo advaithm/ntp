@@ -34,9 +34,7 @@ const Layout = ({ children, background, attribution }: { children: any; backgrou
 			<div style={{ display: "flex", flexDirection: "row" }}>
 				{settingsVisible && <Settings />}
 				{ready && <MountEverest settingsVisible={settingsVisible}>
-					<button style={{ height: "28px", position: "absolute" }} onClick={() => setSettingsVisible(!settingsVisible)}>settings</button>
-					<Time />
-					<Metadata attribution={attribution} actions={[setBackgroundDimmed]} />
+
 				</MountEverest>}
 			</div>
 			{children}

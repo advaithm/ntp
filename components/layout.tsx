@@ -1,13 +1,10 @@
 import React from 'react'
 
 import { MountEverest, BackgroundDisplay } from "./styles"
-import { Time } from "../widgets/Time"
-import { Metadata } from "../widgets/Metadata"
 
 import { Attribution } from "./types"
 
 import { Widgets } from '../src/widget'
-import { Settings } from '../widgets/Settings'
 
 const Layout = ({ children, background, attribution }: { children: any; background: string; attribution: Attribution }) => {
 	const [ready, setReady] = React.useState(false);
@@ -32,9 +29,10 @@ const Layout = ({ children, background, attribution }: { children: any; backgrou
 				settingsVisible={settingsVisible}
 			/>
 			<div style={{ display: "flex", flexDirection: "row" }}>
-				{settingsVisible && <Settings />}
 				{ready && <MountEverest settingsVisible={settingsVisible}>
-
+					{Widgets.registeredWidgets.map((widget) => (
+						<widget.component metadata={JSON.stringify({ name: widget.name, author: widget.author })} id={widget.id}  />
+					))}
 				</MountEverest>}
 			</div>
 			{children}

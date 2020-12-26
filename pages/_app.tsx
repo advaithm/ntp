@@ -10,6 +10,7 @@ const App = ({ Component, pageProps }: { Component: any, pageProps: any }) => {
     <>
       <Head>
         <title>New Tab</title>
+        <link rel="shortcut icon" href="about:blank" />
       </Head>
       <NTPPage {...pageProps} />
       {/* {typeof(window) !== "undefined" && window.location.pathname.startsWith("/settings") && <Settings />} */}

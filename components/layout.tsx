@@ -30,8 +30,8 @@ const Layout = ({ children, background, attribution }: { children: any; backgrou
 
 	return (
 		<>
-			<BackgroundDisplay 
-				src={background} 
+			<BackgroundDisplay
+				src={background || "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="} 
 				loaded={backgroundLoaded} 
 				dimmed={backgroundDimmed}
 				visible={backgroundVisible}

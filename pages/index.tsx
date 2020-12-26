@@ -23,7 +23,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       background: img.background,
       attribution: img.attribution
     },
-    revalidate: 10
+    revalidate: 300
   }
 };
 

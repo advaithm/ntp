@@ -1,5 +1,6 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
   entry: './src/index.tsx',
@@ -28,9 +29,12 @@ module.exports = {
     ]
   },
 
+  watch: process.env.NODE_ENV == "development",
+
   plugins: [
     new HtmlWebpackPlugin({
       template: 'static/index.html'
-    })
+    }),
+    new CompressionPlugin()
   ]
 };

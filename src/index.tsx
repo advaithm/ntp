@@ -1,12 +1,18 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import { StyledApp } from './style';
+import { Normalize } from 'styled-normalize';
 
-const App = () => (
-    <StyledApp>
-        hi
-    </StyledApp>
+import { App } from './components/App';
+import { Background } from './components/Background';
+
+const Mount = () => (
+    <React.Fragment>
+        <Normalize />
+
+        <Background provider={"unsplash"} />
+        <App />
+    </React.Fragment>
 )
 
-render(<App />, document.getElementById("ntp"))
+render(<Mount />, document.getElementById("ntp"))

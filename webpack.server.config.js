@@ -16,6 +16,8 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.js'],
   },
 
+  watch: process.env.NODE_ENV == "development",
+
   module: {
     rules: [
         {

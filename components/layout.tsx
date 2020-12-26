@@ -40,13 +40,13 @@ const Layout = ({ children, background, attribution }: { children: any; backgrou
 				onError={() => setBackgroundVisible(false)}
 			/>
 			
-			<div style={{ display: "flex", flexDirection: "row" }}>
+			{/* <div style={{ display: "flex", flexDirection: "row" }}>
 				{ready && <MountEverest settingsVisible={settingsVisible}>
 					{Widgets.registeredWidgets.map((widget) => (
 						<widget.component metadata={JSON.stringify({ name: widget.name, author: widget.author })} id={widget.id}  />
 					))}
 				</MountEverest>}
-			</div>
+			</div> */}
 			{children}
 		</>
 	)

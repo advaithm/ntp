@@ -7,12 +7,12 @@ import { App } from './components/App';
 import { Background } from './components/Background';
 
 const Mount = () => (
-    <React.Fragment>
+    <>
         <Normalize />
 
         <Background provider={"unsplash"} />
         <App />
-    </React.Fragment>
+    </>
 )
 
 render(<Mount />, document.getElementById("ntp"))

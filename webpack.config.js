@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CompressionPlugin = require("compression-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: './src/index.tsx',
@@ -9,6 +10,8 @@ module.exports = {
     path: path.resolve('dist'),
     filename: 'ntp.js'
   },
+
+  devtool: "source-map",
 
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
@@ -35,6 +38,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'static/index.html'
     }),
-    new CompressionPlugin()
+    new CompressionPlugin(),
+    new CopyPlugin({
+      patterns: [
+        { from: "plugins", to: "plugins" },
+      ],
+    })
   ]
 };

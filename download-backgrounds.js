@@ -29,7 +29,7 @@ const getImages = (pageNum) => {
 
 const downloadImage = (url) => {
     return new Promise(async (resol) => {
-        const res = await axios.get(url, { responseType: 'stream' })
+        const res = await axios.get(url + `&w=2560`, { responseType: 'stream' })
 
         const filename = res.request.path.substr(1).split("?")[0] + "." + res.headers["content-type"].split("image/")[1];
         console.log(resolve(__dirname, "backgrounds", "unsplash", filename))

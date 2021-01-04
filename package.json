@@ -22,6 +22,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "localforage": "^1.9.0",
+    "path-browserify": "^1.0.1",
+    "raw-loader": "^4.0.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-intl": "^5.10.9",
@@ -42,5 +44,14 @@
     "webpack-cli": "^4.3.0",
     "webpack-dev-server": "^3.11.0",
     "webpack-node-externals": "^2.5.2"
+  },
+  "browser": {
+    "crypto": false,
+    "fs": false,
+    "path": false,
+    "os": false,
+    "net": false,
+    "stream": false,
+    "tls": false
   }
 }

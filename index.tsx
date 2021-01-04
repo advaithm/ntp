@@ -1,9 +1,10 @@
 import express from 'express';
 import axios from 'axios';
 import dotenv from 'dotenv';
-import { readFileSync } from 'fs';
+import { readdirSync, readFileSync } from 'fs';
 import React from 'react';
 import ReactDOMServer from "react-dom/server";
+import { resolve } from 'path';
 
 dotenv.config();
 
@@ -49,12 +50,13 @@ app.get("/api", (req, res) => {
 })
 
 app.get("/api/backgrounds/unsplash", (req, res) => {
-    console.log(backgrounds.official.length)
+    const path = resolve(process.cwd(), "backgrounds", "unsplash");
+    const images = readdirSync(path);
+    const length = images.length;
+    
+    const image = images[parseInt((Math.random() * (length - 0) + 0).toFixed())];
 
-    const collection = (req.query.collection as any) || "official"
-    const background = backgrounds[collection][Math.floor(Math.random() * backgrounds[collection].length)];
-
-    res.end(background.image)
+    res.sendFile(resolve(path, image))
 })
 
 app.get("/plugin/:id/mount", (req, res) => {

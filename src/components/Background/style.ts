@@ -6,6 +6,10 @@ export const StyledBackground = styled.div`
     background-color: black;
 
     ${({ src }: { src: any }) => css`
-        background-image: url(${src});
+        background-image: ${src};
+
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
     `};
 `

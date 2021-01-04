@@ -10,7 +10,7 @@ const Mount = () => (
     <>
         <Normalize />
 
-        <Background provider={"unsplash"} />
+        <Background provider={"solid"} />
         <App />
     </>
 )

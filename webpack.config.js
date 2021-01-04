@@ -3,8 +3,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CompressionPlugin = require("compression-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
-module.exports = {
+const config = {
   entry: './src/index.tsx',
+
+  target: "web",
 
   output: {
     path: path.resolve('dist'),
@@ -28,7 +30,7 @@ module.exports = {
             test: /\.(ts|tsx)?$/,
             use: 'ts-loader',
             exclude: /node_modules/,
-        },
+        }
     ]
   },
 
@@ -42,7 +44,10 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         { from: "plugins", to: "plugins" },
+        { from: "backgrounds", to: "backgrounds" }
       ],
     })
   ]
 };
+
+module.exports = config;

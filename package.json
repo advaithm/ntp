@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "concurrently 'cross-env NODE_ENV=development webpack -c webpack.config.js' 'cross-env NODE_ENV=development webpack -c webpack.server.config.js'",
     "build": "concurrently 'cross-env NODE_ENV=production webpack -c webpack.config.js' 'cross-env NODE_ENV=production webpack -c webpack.server.config.js'",
-    "start": "node dist/server.js",
+    "start": "node dist/index.js",
     "prod": "yarn build && yarn start"
   },
   "dependencies": {

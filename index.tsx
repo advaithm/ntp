@@ -49,14 +49,19 @@ app.get("/api", (req, res) => {
     })
 })
 
-app.get("/api/backgrounds/unsplash", (req, res) => {
+app.get("/api/backgrounds/unsplash/:id?", (req, res) => {
     const path = resolve(process.cwd(), "backgrounds", "unsplash");
     const images = readdirSync(path);
-    const length = images.length;
     
-    const image = images[parseInt((Math.random() * (length - 0) + 0).toFixed())];
+    if(req.params.id && parseInt(req.params.id)) {
+        const image = images[parseInt(req.params.id)];
 
-    res.sendFile(resolve(path, image))
+        res.sendFile(resolve(path, image))
+    } else {
+        const length = images.length;
+
+        res.redirect(`unsplash/${Math.floor(Math.random() * (length - 0) + 0).toString()}`)
+    }
 })
 
 app.get("/plugin/:id/mount", (req, res) => {

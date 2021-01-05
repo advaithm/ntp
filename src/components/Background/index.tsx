@@ -12,9 +12,9 @@ export const Background = ({ provider }: { provider: 'unsplash' | 'solid' | 'gra
             if(unsplashStarted) return;
             setUnsplashStarted(true);
 
-            let preload: any = document.createElement("img");
-            preload.src = `/api/backgrounds/unsplash`;            
-            document.head.appendChild(preload)
+            let preload: any = new Image();
+            preload.src = `/api/backgrounds/unsplash`;
+            preload.crossOrigin = 'anonymous';
 
             preload.addEventListener("load", () => {
                 setSrc(`url(${preload.getAttribute("src")})`);

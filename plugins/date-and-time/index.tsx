@@ -7,17 +7,13 @@ class Time extends React.Component {
     private tick() {
         const d = new Date();
 
-        this.setState({ time: `${d.getHours()}:${d.getMinutes()}` })
+        this.setState({ time: `${d.getHours().toString().padStart(2, "0")}:${d.getMinutes().toString().padStart(2, "0")}` })
     }
 
     componentDidMount() {
         this.tick();
 
-        setInterval(() => {
-            const d = new Date();
-
-            this.setState({ time: `${d.getHours().toString().padStart(2, "0")}:${d.getMinutes().toString().padStart(2, "0")}` })
-        }, 500)
+        setInterval(this.tick, 500)
     }
 
     render() {

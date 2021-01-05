@@ -6,11 +6,5 @@ export const StyledApp = styled.main`
     position: fixed;
     top: 0;
     left: 0;
-
-    // Syntax:
-        // tl (top left) // tc (top center) // tr (top right)
-        // cl (center left) // cc (center center) // cr (center right)
-        // bl (bottom left) // bc (bottom center) // br (bottom right)
-
-    grid-gap: 10px;
+    font-family: "Inter", system-ui;
 `;

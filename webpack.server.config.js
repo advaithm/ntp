@@ -6,7 +6,7 @@ module.exports = {
 
   output: {
     path: path.resolve('dist'),
-    filename: 'server.js'
+    filename: 'index.js'
   },
 
   target: 'node',

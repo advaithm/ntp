@@ -39,5 +39,7 @@ jobs:
         uses: EndBug/add-and-commit@v6.2.0
         with:
           add: backgrounds.json backgrounds/unsplash
+          author_name:  dothq-robot
+          author_email:  72629236+dothq-robot@users.noreply.github.com
           message: "🖼 Update Unsplash backgrounds" 
           token: ${{ secrets.ROBOT_TOKEN }}

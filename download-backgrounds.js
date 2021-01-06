@@ -19,7 +19,13 @@ const getImages = (pageNum) => {
         if(res.data.length == 0) return resolve(false);
         console.log(`Downloading page ${pageNum}...`)
 
-        res.data.map((i) => images.add(i.urls.raw))
+        res.data.map((i) => images.add({
+            id: i.urls.raw.split("https://images.unsplash.com/")[1].split("?")[0],
+            original_url: i.urls.raw,
+            author_name: i.user.name,
+            author_username: i.user.username,
+            url: i.links.html
+        }))
 
         console.log(`Done page ${pageNum}!`)
 
@@ -27,9 +33,11 @@ const getImages = (pageNum) => {
     })
 }
 
-const downloadImage = (url) => {
+const downloadImage = (data) => {
     return new Promise(async (resol) => {
-        const res = await axios.get(url + `&w=2560`, { responseType: 'stream' })
+        const url = data.original_url;
+
+        const res = await axios.get(url + `?w=2560`, { responseType: 'stream' })
 
         const filename = res.request.path.substr(1).split("?")[0] + "." + res.headers["content-type"].split("image/")[1];
         console.log(resolve(__dirname, "backgrounds", "unsplash", filename))
@@ -56,6 +64,8 @@ const main = async () => {
     Array.from(images).forEach(async image => {
         await downloadImage(image);
     })
+
+    fs.writeFileSync(resolve(__dirname, "backgrounds.json"), JSON.stringify(Array.from(images), null, 2))
 }
 
 main();

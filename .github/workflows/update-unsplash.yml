@@ -38,6 +38,6 @@ jobs:
       - name: Push to GitHub
         uses: EndBug/add-and-commit@v6.2.0
         with:
-          add: .
+          add: backgrounds.json backgrounds/unsplash
           message: "🖼 Update Unsplash backgrounds" 
-          token: $\{{ secrets.ROBOT_TOKEN }}
+          token: ${{ secrets.ROBOT_TOKEN }}

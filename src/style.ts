@@ -6,5 +6,4 @@ export const StyledApp = styled.main`
     position: fixed;
     top: 0;
     left: 0;
-    font-family: "Inter", system-ui;
 `;

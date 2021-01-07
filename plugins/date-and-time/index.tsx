@@ -4,16 +4,16 @@ import { StyledTime } from "./style";
 class Time extends React.Component {
     public state = { time: "" }
 
-    private tick() {
-        const d = new Date();
-
-        this.setState({ time: `${d.getHours().toString().padStart(2, "0")}:${d.getMinutes().toString().padStart(2, "0")}` })
-    }
-
     componentDidMount() {
-        this.tick();
+        const tick = () => {
+            const d = new Date();
 
-        setInterval(this.tick, 500)
+            this.setState({ time: `${d.getHours().toString().padStart(2, "0")}:${d.getMinutes().toString().padStart(2, "0")}` })
+        }
+
+        tick();
+
+        setInterval(tick, 500)
     }
 
     render() {

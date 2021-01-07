@@ -39,12 +39,13 @@ const downloadImage = (data) => {
     return new Promise(async (resol) => {
         const url = data.original_url;
 
-        const res = await axios.get(url + `?w=2560`, { responseType: 'arraybuffer' })
+        const res = await axios.get(url, { responseType: 'arraybuffer' })
 
-        const filename = `${data.author_username}-${data.url.split("unsplash.com/photos/")[1]}.webp`
+        const filename = `${data.author_username}-${data.url.split("unsplash.com/photos/")[1]}.jpeg`
         console.log("Downloading", filename + "...")
 
         sharp(Buffer.from(res.data))
+            .resize(1920, 1080)
             .toFile(resolve(__dirname, "backgrounds", "unsplash", filename))
 
         resol(true)

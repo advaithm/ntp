@@ -2,7 +2,10 @@ import React from "react"
 
 import { StyledBackground } from "./style";
 
+import backgrounds from '../../backgrounds'
+
 export const Background = ({ provider }: { provider: 'unsplash' | 'solid' | 'gradient' | 'local' }) => {
+    const ref = React.createRef<HTMLDivElement>();
     const [src, setSrc] = React.useState("unset");
     const [unsplashStarted, setUnsplashStarted] = React.useState(false);
     const [ready, setReady] = React.useState(provider == "unsplash" ? false : true);
@@ -12,14 +15,16 @@ export const Background = ({ provider }: { provider: 'unsplash' | 'solid' | 'gra
             if(unsplashStarted) return;
             setUnsplashStarted(true);
 
-            let preload: any = new Image();
-            preload.src = `/api/backgrounds/unsplash`;
+            const url = `/backgrounds/unsplash/${backgrounds[Math.floor(Math.random() * (backgrounds.length - 0) + 0)].id}.jpeg`;
+            setSrc(`url(${url})`);
 
-            preload.addEventListener("load", () => {
-                setSrc(`url(${preload.getAttribute("src")})`);
-                preload = undefined;
+            const imgCache = new Image();
+            imgCache.src = url;
+
+            imgCache.addEventListener("load", (e) => {
+                console.log(e)
                 setReady(true);
-            });
+            })
         }
         else if(provider == "solid") {
             setSrc("linear-gradient(red, red)");
@@ -27,6 +32,6 @@ export const Background = ({ provider }: { provider: 'unsplash' | 'solid' | 'gra
     })
 
     return (
-        <StyledBackground ready={ready} provider={provider} src={src} />
+        <StyledBackground ref={ref} ready={ready} provider={provider} src={src} />
     )
 }

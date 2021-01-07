@@ -53,7 +53,7 @@ const downloadImage = (data) => {
 
 const main = async () => {
     rimraf(resolve(__dirname, "backgrounds", "unsplash"))
-    fs.mkdirSync(resolve(__dirname, "backgrounds", "unsplash"))
+    fs.mkdirSync(resolve(__dirname, "backgrounds", "unsplash"), { recursive: true })
 
     await getImages(1);
 

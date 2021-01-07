@@ -14,7 +14,6 @@ export const Background = ({ provider }: { provider: 'unsplash' | 'solid' | 'gra
 
             let preload: any = new Image();
             preload.src = `/api/backgrounds/unsplash`;
-            preload.crossOrigin = 'anonymous';
 
             preload.addEventListener("load", () => {
                 setSrc(`url(${preload.getAttribute("src")})`);

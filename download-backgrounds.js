@@ -1,6 +1,8 @@
 const axios = require('axios');
 const fs = require("fs");
 const { resolve } = require("path");
+const rimraf = require('rimraf').sync;
+const sharp = require("sharp");
 
 require('dotenv').config();
 
@@ -20,7 +22,7 @@ const getImages = (pageNum) => {
         console.log(`Downloading page ${pageNum}...`)
 
         res.data.map((i) => images.add({
-            id: i.urls.raw.split("https://images.unsplash.com/")[1].split("?")[0],
+            id: `${i.user.username}-${i.links.html.split("unsplash.com/photos/")[1]}`,
             original_url: i.urls.raw,
             author_name: i.user.name,
             author_username: i.user.username,
@@ -37,18 +39,22 @@ const downloadImage = (data) => {
     return new Promise(async (resol) => {
         const url = data.original_url;
 
-        const res = await axios.get(url + `?w=2560`, { responseType: 'stream' })
+        const res = await axios.get(url + `?w=2560`, { responseType: 'arraybuffer' })
 
-        const filename = res.request.path.substr(1).split("?")[0] + "." + res.headers["content-type"].split("image/")[1];
-        console.log(resolve(__dirname, "backgrounds", "unsplash", filename))
+        const filename = `${data.author_username}-${data.url.split("unsplash.com/photos/")[1]}.webp`
+        console.log("Downloading", filename + "...")
 
-        res.data.pipe(fs.createWriteStream(resolve(__dirname, "backgrounds", "unsplash", filename)))
+        sharp(Buffer.from(res.data))
+            .toFile(resolve(__dirname, "backgrounds", "unsplash", filename))
 
         resol(true)
     })
 }
 
 const main = async () => {
+    rimraf(resolve(__dirname, "backgrounds", "unsplash"))
+    fs.mkdirSync(resolve(__dirname, "backgrounds", "unsplash"))
+
     await getImages(1);
 
     let i = 1;
@@ -61,11 +67,11 @@ const main = async () => {
 
     console.log("Saved image URIs.");
 
+    fs.writeFileSync(resolve(__dirname, "src", "backgrounds.ts"), `export default ${JSON.stringify(Array.from(images), null, 4).replace(/"([A-Za-z0-9\-\_]+)":/g, (v) => { return v.replace(/"/g, "") })};`)
+
     Array.from(images).forEach(async image => {
         await downloadImage(image);
     })
-
-    fs.writeFileSync(resolve(__dirname, "backgrounds.json"), JSON.stringify(Array.from(images), null, 2))
 }
 
 main();

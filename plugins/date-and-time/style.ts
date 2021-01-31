@@ -5,3 +5,10 @@ export const StyledTime = styled.time`
     font-size: 5rem;
     font-weight: 600;
 `;
+
+export const StyledDate = styled.time`
+    display: block;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 400;
+`;

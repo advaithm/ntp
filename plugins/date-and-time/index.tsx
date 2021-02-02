@@ -14,6 +14,7 @@ class Time extends React.Component {
         tick();
 
         setInterval(tick, 995) // 995? Better than 500 that's for sure.
+    }
 
     render() {
         return (

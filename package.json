@@ -30,7 +30,7 @@
     "react-dom": "^17.0.1",
     "react-intl": "^5.10.9",
     "rimraf": "^3.0.2",
-    "sharp": "^0.27.0",
+    "sharp": "^0.27.1",
     "styled-components": "^5.2.1",
     "styled-normalize": "^8.0.7",
     "svg-inline-loader": "^0.8.2",

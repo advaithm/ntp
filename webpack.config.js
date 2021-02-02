@@ -2,7 +2,6 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CompressionPlugin = require("compression-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-const MergePlugin = require("merge-webpack-plugin");
 
 const config = {
   entry: './src/index.tsx',
@@ -38,8 +37,6 @@ const config = {
         }
     ]
   },
-
-  watch: process.env.NODE_ENV == "development",
 
   plugins: [
     new HtmlWebpackPlugin({

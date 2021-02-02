@@ -11,4 +11,5 @@ export const StyledDate = styled.time`
     color: white;
     font-size: 1.2rem;
     font-weight: 400;
+    opacity: 0.7;
 `;

@@ -9,9 +9,9 @@ import { Widget } from "../Widget"
 export const App = () => {
     return (
         <StyledApp>
-            {Object.entries(widgets).map(([id, Component]) => (
-                <Widget id={id} key={id}>
-                    <Component />
+            {Object.entries(widgets).map(([id, w]) => (
+                <Widget id={id} key={id} defaultSlot={w.defaultPosition}>
+                    <w.component />
                 </Widget>
             ))}
         </StyledApp>

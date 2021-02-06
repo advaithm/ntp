@@ -9,13 +9,17 @@ import State from './state';
 
 export const state = new State();
 
-const Mount = () => (
-    <>
-        <Normalize />
+const Mount = () => {
+    const [background] = React.useState(state.get().background);
 
-        <Background provider={"unsplash"} />
-        <App />
-    </>
-)
+    return (
+        <>
+            <Normalize />
+
+            <Background provider={background.provider || "unsplash"} />
+            <App />
+        </>
+    )
+}
 
 render(<Mount />, document.getElementById("ntp"))

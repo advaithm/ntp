@@ -5,5 +5,9 @@ export default {
     "date-and-time": {
         component: Time,
         defaultPosition: "center-center"
+    },
+    "weather":{
+        component: Weather,
+        defaultPosition: "bottom-left"
     }
 }

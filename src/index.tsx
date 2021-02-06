@@ -10,16 +10,16 @@ import State from './state';
 export const state = new State();
 
 const Mount = () => {
-    const [background] = React.useState(state.get().background);
+  const [background] = React.useState(state.get().background);
 
-    return (
-        <>
-            <Normalize />
+  return (
+    <>
+      <Normalize />
 
-            <Background provider={background.provider || "unsplash"} />
-            <App />
-        </>
-    )
-}
+      <Background provider={background.provider || 'unsplash'} />
+      <App />
+    </>
+  );
+};
 
-render(<Mount />, document.getElementById("ntp"))
+render(<Mount />, document.getElementById('ntp'));

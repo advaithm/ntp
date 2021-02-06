@@ -1,9 +1,8 @@
-import Time from "../plugins/date-and-time";
-import Weather from "../plugins/weather";
+import Time from '../plugins/date-and-time';
 
 export default {
-    "date-and-time": {
-        component: Time,
-        defaultPosition: "center-center"
-    }
-}
+  'date-and-time': {
+    component: Time,
+    defaultPosition: 'center-center'
+  }
+};

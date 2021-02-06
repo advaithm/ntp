@@ -1,13 +1,35 @@
+const defaultState = {
+    slots: {
+
+    },
+    background: {
+        provider: "unsplash",
+        src: ""
+    }
+}
+
 export default class State {
     constructor() {
         const storage = this.parse();
 
-        localStorage.setItem(`ntp-storage`, JSON.stringify({ ...storage, slots: {} }))
+        localStorage.setItem(`ntp-storage`, JSON.stringify({ ...storage, ...defaultState }))
     }
 
-    public parse() {
-        let raw: any = localStorage.getItem(`ntp-storage`);
-        return JSON.parse(raw);
+    public reset() {
+        localStorage.setItem(`ntp-storage`, JSON.stringify({ ...defaultState }))
+    }
+
+    public parse(): any {
+        try {
+            let raw: any = localStorage.getItem(`ntp-storage`);
+            return JSON.parse(raw);
+        } catch(e) {
+            console.log("Failed to parse ntp-storage");
+            console.error(e);
+
+            this.reset();
+            return this.parse();
+        }
     }
 
     get() {
@@ -18,6 +40,7 @@ export default class State {
         const storage = this.parse();
         const newStorage = data;
 
+        console.log({ ...storage, ...newStorage })
         localStorage.setItem(`ntp-storage`, JSON.stringify({ ...storage, ...newStorage }));
 
         return data;

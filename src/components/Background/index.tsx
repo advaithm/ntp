@@ -3,14 +3,24 @@ import React from "react"
 import { StyledBackground } from "./style";
 
 import backgrounds from '../../backgrounds'
+import { state } from "../..";
 
 export const Background = ({ provider }: { provider: 'unsplash' | 'solid' | 'gradient' | 'local' }) => {
+    const [settings, setSettings] = React.useState(state.get().background);
+
     const ref = React.createRef<HTMLDivElement>();
     const [src, setSrc] = React.useState("unset");
     const [unsplashStarted, setUnsplashStarted] = React.useState(false);
     const [ready, setReady] = React.useState(provider == "unsplash" ? false : true);
 
     React.useEffect(() => {
+        if(!settings) {
+            setSettings({
+                provider: "unsplash",
+                src: ""
+            })
+        }
+
         if(provider == "unsplash") {
             if(unsplashStarted) return;
             setUnsplashStarted(true);
@@ -22,12 +32,11 @@ export const Background = ({ provider }: { provider: 'unsplash' | 'solid' | 'gra
             imgCache.src = url;
 
             imgCache.addEventListener("load", (e) => {
-                console.log(e)
                 setReady(true);
             })
         }
         else if(provider == "solid") {
-            setSrc("linear-gradient(red, red)");
+            setSrc(settings.src);
         }
     })
 

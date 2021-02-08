@@ -1,37 +1,51 @@
-import React from "react"
+import React from 'react';
 
-import { StyledBackground } from "./style";
+import { StyledBackground } from './style';
 
-import backgrounds from '../../backgrounds'
+import backgrounds from '../../backgrounds';
+import { state } from '../..';
 
-export const Background = ({ provider }: { provider: 'unsplash' | 'solid' | 'gradient' | 'local' }) => {
-    const ref = React.createRef<HTMLDivElement>();
-    const [src, setSrc] = React.useState("unset");
-    const [unsplashStarted, setUnsplashStarted] = React.useState(false);
-    const [ready, setReady] = React.useState(provider == "unsplash" ? false : true);
+export const Background = ({
+  provider
+}: {
+  provider: 'unsplash' | 'solid' | 'gradient' | 'local';
+}) => {
+  const [settings, setSettings] = React.useState(state.get().background);
 
-    React.useEffect(() => {
-        if(provider == "unsplash") {
-            if(unsplashStarted) return;
-            setUnsplashStarted(true);
+  const ref = React.createRef<HTMLDivElement>();
+  const [src, setSrc] = React.useState('unset');
+  const [unsplashStarted, setUnsplashStarted] = React.useState(false);
+  const [ready, setReady] = React.useState(provider != 'unsplash');
 
-            const url = `/backgrounds/unsplash/${backgrounds[Math.floor(Math.random() * (backgrounds.length - 0) + 0)].id}.jpeg`;
-            setSrc(`url(${url})`);
+  React.useEffect(() => {
+    if (!settings) {
+      setSettings({
+        provider: 'unsplash',
+        src: ''
+      });
+    }
 
-            const imgCache = new Image();
-            imgCache.src = url;
+    if (provider == 'unsplash') {
+      if (unsplashStarted) return;
+      setUnsplashStarted(true);
 
-            imgCache.addEventListener("load", (e) => {
-                console.log(e)
-                setReady(true);
-            })
-        }
-        else if(provider == "solid") {
-            setSrc("linear-gradient(red, red)");
-        }
-    })
+      const url = `/backgrounds/unsplash/${
+        backgrounds[Math.floor(Math.random() * (backgrounds.length - 0) + 0)].id
+      }.jpeg`;
+      setSrc(`url(${url})`);
 
-    return (
-        <StyledBackground ref={ref} ready={ready} provider={provider} src={src} />
-    )
-}
+      const imgCache = new Image();
+      imgCache.src = url;
+
+      imgCache.addEventListener('load', () => {
+        setReady(true);
+      });
+    } else if (provider == 'solid') {
+      setSrc(settings.src);
+    }
+  });
+
+  return (
+    <StyledBackground ref={ref} ready={ready} provider={provider} src={src} />
+  );
+};

@@ -1,36 +1,29 @@
 import React from 'react';
 import { state } from '../..';
-import icons from '../../icons';
 import { StyledWidget } from './style';
 
-export const Widget = ({ id, children }: { id: string, children: React.ReactNode }) => {
-    let settings = state.get()[id];
-    let slot = state.get().slots[id];
+export const Widget = ({
+  id,
+  children,
+  defaultSlot
+}: {
+  id: string;
+  children: React.ReactNode;
+  defaultSlot: string;
+}) => {
+  const [settings] = React.useState(state.get()[id]);
+  const [slot, setSlot] = React.useState(state.get().slots[id]);
 
-    if(!settings) {
-        state.set({ [id]: {} })
-        settings = {}
-    }
+  React.useEffect(() => {
+    if (!slot) setSlot(defaultSlot);
 
-    if(!slot) {
-        const slots: {} = state.get().slots;
-        const allSlots = ['top-left', 'top-center', 'top-right', 'center-left', 'center-center', 'center-right', 'bottom-left', 'bottom-center', 'bottom-left']
+    if (slot && settings)
+      console.log(`[WidgetLoader] Loaded ${id}`, settings, slot);
+  }, [slot, settings]);
 
-        const slotsVals = Object.values(slots);
-
-        for (const s of allSlots) {
-            if(!slotsVals.includes((s as string))) {
-                state.setSlot(id, (s as any))
-                slot = s;
-                break;
-            }
-        }
-    }
-
-    return (
-        <StyledWidget className={slot} id={id}>
-            {children}
-            {/* <i /> */}
-        </StyledWidget>
-    )
-}
+  return (
+    <StyledWidget className={slot} id={id}>
+      {children}
+    </StyledWidget>
+  );
+};

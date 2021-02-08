@@ -1,5 +1,8 @@
-import Time from "../plugins/date-and-time";
+import Time from '../plugins/date-and-time';
 
 export default {
-    "date-and-time": Time,
-}
+  'date-and-time': {
+    component: Time,
+    defaultPosition: 'center-center'
+  }
+};

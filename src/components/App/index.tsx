@@ -6,6 +6,8 @@ import widgets from '../../widgets';
 
 import { Widget } from '../Widget';
 
+import Settings from '../Settings';
+
 export const App = () => {
   return (
     <StyledApp>
@@ -14,6 +16,7 @@ export const App = () => {
           <w.component />
         </Widget>
       ))}
+      <Settings></Settings>
     </StyledApp>
   );
 };

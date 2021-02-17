@@ -3,7 +3,8 @@ import styled from 'styled-components';
 export const StyledSettingsBackground = styled.div`
   height: 100vh;
   background-color: white;
-  width: 20vw;
+  width: 412px;
+  max-width: 50vw;
   position: absolute;
   right: 0px;
 `;
@@ -22,4 +23,13 @@ export const StyledSettingsH2 = styled.h2`
 
 export const StyledSettingsP = styled.p`
   margin: 0;
+`;
+
+export const StyledLeftSide = styled.div`
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 0px;
+  min-width: 50vw;
+  width: calc(100vw - 412px);
 `;

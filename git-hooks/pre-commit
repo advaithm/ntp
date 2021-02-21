@@ -1,4 +1,4 @@
-#!/bin/shs
+#!/bin/sh
 npm run lint
 
 exit $?

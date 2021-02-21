@@ -1,7 +1,4 @@
-#!/bin/sh
-
-# BAECKEND ESLINT CHECK
-###########################
+#!/bin/shs
 npm run lint
 
 exit $?

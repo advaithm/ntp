@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# BAECKEND ESLINT CHECK
+###########################
+npm run lint
+
+exit $?
